@@ -1,4 +1,4 @@
-This is a small app designed to facilitate looking up code words in their relevant API's. The language links are also bookmarklets.
+﻿This is a small app designed to facilitate looking up code words in their relevant API's. The language links are also bookmarklets.
 They can each be dragged into a browser bookmarks toolbar and used from any page on the web. To look up a code word first select it,
 then use the bookmarklet link in the bookmarks toolbar. 
 
