@@ -99,6 +99,9 @@ body {
 span[data-tooltip], .tooltip {
 	position: fixed;
 	color: #fff;
+	font-size: 1.2em;
+	width: 32em;
+	line-height: 1.5em;
 	margin-left: 2rem;
 	margin-top: 9rem;
 	text-decoration: none;
@@ -128,9 +131,10 @@ span[data-tooltip]::after, .tooltip span {
 }
 
 span[data-tooltip]:hover::after, .tooltip:hover span {
-	opacity: .8;
+	opacity: 1;
 	background: url(../images/dark_wood.png);
-	
+	font-size: 1.2em;
+	line-height: 1.5em;
 	background-size: 256px 256px;
 	cursor: pointer;
 	border-bottom: none;
@@ -235,6 +239,54 @@ h2 {
 	margin-left: 2rem;
 }
 
+/* landing page right side */
+.title2 {
+	position: absolute;
+	box-sizing: border-box;
+	display: inline;
+	margin-top: .5rem;
+	margin-left: 40rem;
+	font-size: 1.2em;
+	white-space: nowrap;
+	-webkit-text-shadow: 3px 3px 5px rgba(255, 255, 255, .5);
+	text-shadow: 3px 3px 5px rgba(255, 255, 255, .5);
+}
+
+.title2 p {
+	position: absolute;
+	margin-top: 5rem;
+	margin-left: 6.5rem;
+	font-size: 1.2em;
+}
+
+.title2:before {
+	position: absolute;
+	content: url(../images/logoapisearch64.png);
+	box-sizing: border-box;
+	padding-right: 1rem;
+	margin-top: .5rem;
+	margin-left: 1rem;
+}
+
+.scrnshots img {
+	display: inline block;
+	margin-top: 12rem;
+	position: absolute;
+	margin-left: 5rem;
+}
+
+.scrn2 img {
+	margin-left: 30rem;
+	margin-top: 25rem;
+}
+
+.scrn1 p {
+	position: absolute;
+	margin-top: 45rem;
+	clear: both;
+	margin-left: 2rem;
+}
+
 /* button grid container */
 table {	
 	-moz-box-sizing: border-box;
@@ -316,7 +368,17 @@ div[class^="grid-"] {
 
 .social {
 	position: fixed;
-	left: 75%;
-	margin-top: 45.2rem;
+	left: 2rem;
+	margin-top: 50rem;
 	opacity: .6;
+}
+
+@media (min--moz-device-pixel-ratio: 1.5),
+       (-o-min-device-pixel-ratio: 3/2),
+       (-webkit-min-device-pixel-ratio: 1.5),
+       (min-device-pixel-ratio: 1.5),
+       (min-resolution: 144dpi),
+       (min-resolution: 1.5dppx) {
+ 
+/* Retina rules! */
 }
