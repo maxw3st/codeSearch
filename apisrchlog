@@ -1,0 +1,33 @@
+[33mcommit dda60b5d96a3dd9dbddc33d6ac4c809b6e5d6136[m
+Author: maxw3st <prdood01@gmail.com>
+Date:   Mon Dec 3 18:26:35 2012 -0500
+
+    added URL for site in comment
+
+[33mcommit 059d55ef7caedce52f328b5f0bdda68c563a2227[m
+Author: maxw3st <prdood01@gmail.com>
+Date:   Mon Dec 3 17:56:47 2012 -0500
+
+    commit readMe file
+
+[33mcommit 5f6c18fed5152007a36b1b97459d64ab6adca51d[m
+Author: maxw3st <prdood01@gmail.com>
+Date:   Mon Dec 3 17:52:38 2012 -0500
+
+    changed encoding to UTF-8 in readMe file
+
+[33mcommit 4f369d9d7a98077f6a8ecae779dfb45ab59bcd3d[m
+Author: maxw3st <prdood01@gmail.com>
+Date:   Mon Dec 3 17:24:17 2012 -0500
+
+    Create a README.
+
+[33mcommit ae33456304b016f79455fac71472c2ecd6f45ea3[m
+Author: maxw3st <prdood01@gmail.com>
+Date:   Mon Dec 3 16:46:19 2012 -0500
+
+    API Search
+    
+    A simple app for looking up code in API's. Each language button is a
+    book-marklet that can be dragged into a browser bookmarks-toolbar and
+    used from any page on the web to directly look up selected code words.
