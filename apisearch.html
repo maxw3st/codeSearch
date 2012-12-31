@@ -1,0 +1,301 @@
+﻿<!DOCTYPE HTML>
+<html lang="en">
+<!-- http://sabaki.aisites.com/codelookup/apisearch.html -->
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>API Search</title>
+
+<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+<link rel="icon" href="favicon.ico" type="image/x-icon">
+<link href="css/apisearch.css" rel="stylesheet" type="text/css" media="screen" />
+<script type="text/javascript" src="js/prefixfree.min.js"></script>
+<script type="text/javascript" src="prototype.js"></script>
+<script type="text/javascript" src="js/jquery-1.8.1.min.js"></script>
+<script type="text/javascript" src="js/mootools-core-1.4.5.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+	// match favicons with all urls on the page
+	$("a[href^='http']").each(function() {
+		$(this).css({
+			background: "url(http://g.etfv.co/" + this.href + ") left center no-repeat",
+			"padding-left": "20px"
+		});
+	});
+
+  // focus on the first text input field in the first field on the page
+//$("input[type='textarea']:first", document.forms[0]).focus();
+
+// this function is the source of the default text in the textarea.    
+	$(function() {
+	    $('textarea').each(function() {
+		  $.data(this, 'default', this.value);
+		})
+		
+		.focus(function() {
+			if (!$.data(this, 'edited')) {
+			this.value = "";
+			}
+		})
+		
+		.change(function() {
+			$.data(this, 'edited', this.value != "");
+		})
+		
+		.blur(function() {
+			if (!$.data(this, 'edited')) {
+			this.value = $.data(this, 'default');
+			}
+		});
+	});
+	
+// this function is the source of the text that shows up above the textarea when you select text inside it.
+function getText(elem) {
+    if(elem.tagName === "TEXTAREA" ||
+       (elem.tagName === "INPUT" && elem.type === "text")) {
+           return elem.value.substring(elem.selectionStart, elem.selectionEnd);                                
+       var ta = elem.value.substring(elem.selectionStart, elem.selectionEnd);
+    }
+    return null;
+}
+   
+         
+setInterval(function() {
+    var ta = getText(document.activeElement);
+    document.getElementById('sel').innerHTML =
+        ta === null ? 'no input selected' : ta;
+    //if (ta != null || ta != 'no input selected') {
+	//	$('#lastresort').update(ta.text);
+	//	$('#lastresort').innerHTML;
+}, 100);
+
+// this is another attempt to get the selected textarea text to get picked up by the jQuery button
+// get the selected text (displayed in the #sel div) and pass the value to the ta variable in the API search link
+// code for IE
+var textarea = document.getElementById("textarea");
+ 
+if (document.selection) {
+textarea.focus();
+var sel = document.selection.createRange();
+// alert the selected text in textarea
+//alert(sel.text);
+// save the selected text as the variable ss for the search string tied to the API look up button
+var ta = sel.text; 
+// Finally replace the value of the selected text with this new replacement one
+//sel.text = '<b>' + sel.text + '</b>';
+}
+ 
+// code for Mozilla
+ 
+var textarea = document.getElementById("textarea");
+ 
+var len = textarea.value.length;
+var start = textarea.selectionStart;
+var end = textarea.selectionEnd;
+var sel = textarea.value.substring(start, end);
+var ta = sel;
+
+// currently a div to holds/shows the selected text in a p element on the page and just above the textarea. 
+//This doesn't work for selecting the text in a way the links will trap it.
+//Will probably need to create an array, push the selected text by creating a text-selection eventListener, and alter the link function 
+//so that it accesses the array value.
+/* here lies the key to getting the text selected in a textarea */
+/*     var someDivs = $('#container').find('.someDivs'),  
+          contents = [];  
+    someDivs.each(function() {  
+        contents.push( this.innerHTML );  
+    });  
+    $('#anotherDiv').html( contents.join('') );  */
+
+});	//end document ready
+
+function startTime()
+		{
+			var today=new Date();
+			var h=today.getHours();
+			var m=today.getMinutes();
+			var s=today.getSeconds();
+			// add am and pm for a 12 hour clock
+			if (h > 12) { 
+				h = h -12; 
+				add = "<sub>pm</sub>"; 
+				} else { 
+				h = h; 
+				add = "<sup>am</sup>"; 
+				} if (h === 12) { 
+					add = "pm"; 
+					}
+			// add a zero in front of numbers<10
+			m=checkTime(m);
+			s=checkTime(s);
+			document.getElementById('txt').innerHTML=h+":"+m+":"+s+" "+add;
+			t=setTimeout(function(){startTime()},1000);
+			}
+
+			function checkTime(i)
+			{
+				if (i<10)
+				  {
+				  i="0" + i;
+				  }
+				return i;
+		}
+
+</script>
+
+<!-- Put the button link below on a page with a textarea for users to paste in snippets/functions. Add a button for each scripting language associated with its API. -->
+</head>
+<body onload="startTime()">
+<!--[if gte IE 9]>
+  <style type="text/css">
+    .gradient {
+       filter: none;
+    }
+  </style>
+<![endif]-->
+<div class="wrapper">
+<div id="txt">
+</div> <!-- end clock div -->
+
+<div class="container">
+
+	<div class="title">
+	<h2>API Search</h2>
+	</div> <!-- end title label -->
+
+	<div class="wrapper">
+		<table>
+			<tr class="grids">
+				<td>
+					<div class="grid-1">
+						<div class="buttons">
+							<p class="lnk"><b><a href="javascript:(function()%7Bvar%20d=document,w=window,ds=d.getSelection,ws=w.getSelection,ss=d.selection,e=encodeURIComponent;t=(ws)%3Fws():(ds)%3Fds():(ss)%3Fss.createRange().text:'';t=(t.toString().length)%3Ft:prompt('Please enter the code you would like to research.','');if(t)%7Ba='http://docs.jquery.com/Special:Search?search=';u=a+e(t);f=function()%7Bx=w.open(u,'nfx','scrollbars=1,toolbar=0,resizable=1,status=1,width=800,height=600');if(!x)w.location.href=u;%7D;if(/Firefox/.test(navigator.userAgent))setTimeout(f,0);else%20f();%7D%7D)();">jQuery</a></b></p>
+								<div class="clear"></div>
+						</div> <!-- end jquery code button div -->
+					</div> <!-- end grid-1 box -->
+				</td>
+				
+				<td>
+					<div class="grid-2">
+						<div class="buttons">
+							<p class="lnk"><b><a href="javascript:(function()%7Bvar%20d=document,w=window,ds=d.getSelection,ws=w.getSelection,ss=d.selection,e=encodeURIComponent;t=(ws)%3Fws():(ds)%3Fds():(ss)%3Fss.createRange().text:'';t=(t.toString().length)%3Ft:prompt('Please enter the code you would like to research.','');if(t)%7Ba='http://php.net/search:search?=manual%26';u=a+e(t);f=function()%7Bx=w.open(u,'nfx','scrollbars=1,toolbar=0,resizable=1,status=1,width=800,height=600');if(!x)w.location.href=u;%7D;if(/Firefox/.test(navigator.userAgent))setTimeout(f,0);else%20f();%7D%7D)();">PHP</a></b></p>
+								<div class="clear"></div>
+						</div> <!-- end PHP code button div -->
+					</div> <!-- end grid-2 box -->
+				</td>
+				
+				<td>		
+					<div class="grid-3">
+						<div class="buttons">
+							<p class="lnk"><b><a href="javascript:(function()%7Bvar%20d=document,w=window,ds=d.getSelection,ws=w.getSelection,ss=d.selection,e=encodeURIComponent;t=(ws)%3Fws():(ds)%3Fds():(ss)%3Fss.createRange().text:'';t=(t.toString().length)%3Ft:prompt('Please enter the code you would like to research.','');if(t)%7Ba='http://search.oracle.com/search/search?group=MySQL%26q=';u=a+e(t);f=function()%7Bx=w.open(u,'nfx','scrollbars=1,toolbar=0,resizable=1,status=1,width=800,height=600');if(!x)w.location.href=u;%7D;if(/Firefox/.test(navigator.userAgent))setTimeout(f,0);else%20f();%7D%7D)();">MySQL</a></b></p>
+								<div class="clear"></div>
+						</div> <!-- end MySQL code button div -->
+					</div> <!-- end grid-3 box -->
+				</td>
+			</tr>
+			
+			<tr class="grids">
+				
+				<td>			
+					<div class="grid-4">
+						<div class="buttons">
+							<p class="lnk"><b><a href="javascript:(function()%7Bvar%20d=document,w=window,ds=d.getSelection,ws=w.getSelection,ss=d.selection,e=encodeURIComponent;t=(ws)%3Fws():(ds)%3Fds():(ss)%3Fss.createRange().text:'';t=(t.toString().length)%3Ft:prompt('Please enter the code you would like to research.','');if(t)%7Ba='http://www.cplusplus.com/search.do?q=';u=a+e(t);f=function()%7Bx=w.open(u,'nfx','scrollbars=1,toolbar=0,resizable=1,status=1,width=800,height=600');if(!x)w.location.href=u;%7D;if(/Firefox/.test(navigator.userAgent))setTimeout(f,0);else%20f();%7D%7D)();">C++</a></b></p>
+								<div class="clear"></div>
+						</div> <!-- end C++ code button div -->
+					</div> <!-- end grid-6 box -->
+				</td>
+							<!-- http://help.adobe.com/en_US/FlashPlatform/reference/actionscript/3/input#search-livedocs.searchinput search string for Flash AS 3.0 -->
+				<td>
+					<div class="grid-5">
+						<div class="buttons">
+							<p class="lnk"><b><a href="javascript:(function()%7Bvar%20d=document,w=window,ds=d.getSelection,ws=w.getSelection,ss=d.selection,e=encodeURIComponent;t=(ws)%3Fws():(ds)%3Fds():(ss)%3Fss.createRange().text:'';t=(t.toString().length)%3Ft:prompt('Please enter the code you would like to research.','');if(t)%7Ba='http://community.adobe.com/help/search.html?q=Flash+Pro+AS3+';u=a+e(t);f=function()%7Bx=w.open(u,'nfx','scrollbars=1,toolbar=0,resizable=1,status=1,width=800,height=600');if(!x)w.location.href=u;%7D;if(/Firefox/.test(navigator.userAgent))setTimeout(f,0);else%20f();%7D%7D)();">AS 3.0</a></b></p>
+								<div class="clear"></div>
+						</div> <!-- end ActionScript3.0 code button div -->
+					</div> <!-- end grid-5 box -->
+				</td>
+				
+				<td>
+					<div class="grid-6">
+						<div class="buttons">
+							<p class="lnk"><b><a href="javascript:(function()%7Bvar%20d=document,w=window,ds=d.getSelection,ws=w.getSelection,ss=d.selection,e=encodeURIComponent;t=(ws)%3Fws():(ds)%3Fds():(ss)%3Fss.createRange().text:'';t=(t.toString().length)%3Ft:prompt('Please enter the code you would like to research.','');if(t)%7Ba='https://www.google.com/search?q=site:w3.org+';u=a+e(t);f=function()%7Bx=w.open(u,'nfx','scrollbars=1,toolbar=0,resizable=1,status=1,width=800,height=600');if(!x)w.location.href=u;%7D;if(/Firefox/.test(navigator.userAgent))setTimeout(f,0);else%20f();%7D%7D)();">HTML/CSS</a></b></p>
+								<div class="clear"></div>
+						</div> <!-- end HTML/CSS code button div -->
+					</div> <!-- end grid-4 box -->
+				</td>
+				
+			</tr> <!-- end grids div -->
+		</table>	
+	</div> <!--end fluid grid wrapper div -->
+
+	<div id="sel"></div> <!-- shows selected text as it's selected in the text area -->
+
+	<div class="testcode">
+
+			<div class="tipisland">
+				<span class="tooltip">Directions ☚
+					<span>
+						<p><strong>Any of the options below will work.</strong></p>
+						<p>1. Drag a button to your bookmarks toolbar, select text from any page you visit, and click the link in the toolbar.</P> 
+						<p>2. Copy any code form your source to clipboard, click the code button of choice to bring up the search prompt, paste in your code and click OK.</P> 
+						<p>3. Type, or paste code to check into the textarea below, select, then copy (Ctlr + C / Cmd + C) click a language button, and paste it into the prompt's input field.</P>
+					</span>
+				</span>
+			
+			</div>
+		<form class="sandbox" action="codeAPIlookupnb.html" method="POST">
+			<textarea name="sandbox" id="textarea" maxlength="200" cols="43" rows="8">Paste or type the code block you want to check here. Copy your selected keywords & Click the code button above for the language you're checking.		
+			</textarea>
+			<div id="chars">200
+			
+	<script type="text/javascript" src="js/tinylimiter.js"></script>
+
+	<script type="text/javascript">
+	// this function is connected to the external tinylimiter.js file that supposed to count down as you type in the textarea-not working yet/don't care right now  
+	$document.ready(function() {
+		var elem = $("#chars");
+		$("#textarea").limiter(200, elem);
+	});	
+	</script>
+			</div>	
+			<p class="clearcode">
+				   <input type="submit" name="submit" id="submit" value="Clear Code Block" />
+				   <input type="hidden" name="submitted" value="TRUE" />
+				   &nbsp; 
+			</p>	   
+				 <!-- &nbsp;&nbsp;<span id="top"><a href="#up">Back to Top</a></span> -->
+		</form>
+	</div> <!-- end textarea div -->
+		<div class="geek_humor">
+			<p>Screen real-estate</p>
+		</div>
+		
+			<div class="social lnk">
+				<a href="https://twitter.com/share" class="twitter-share-button" data-via="maxw3st" data-related="davidwalshblog" data-hashtags="APISearch">Tweet</a>
+				<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+			</div>
+		
+	</div> <!-- end container div -->
+	<div class="landing">
+		<div class="title2">
+			<h2>Coming soon to an App store near you!</h2>
+			<p>Screenshots are of the Android prototype. Windows8 &amp; iOS to be released also.</p>
+			
+			<div class="scrnshots">
+				<div class="scrn1">
+					<img src="images/screenshot1_flat.png" alt="screenshot of menu and controls" />
+					<p>Check back for links to the app stores.</p>
+				</div>
+				<div class="scrn2">
+					<img src="images/screenshot2_flat.png" alt="screen of menu and action bars hidden" />
+				</div>
+				
+			
+			</div> <!-- end scrnshots div -->
+		</div> <!-- end title2 div -->
+	</div> <!-- end landing div -->	
+</div> <!-- end wrapper div -->
+</body>
+<!-- copyright 9 2012 js design/@maxw3st extended from a post by @davidwalshblog -->
+</html>
